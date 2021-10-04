@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     renderComments(comments) {
         return comments.map((comment) => {
             return (
                 <li key={comment.id}>
                     <p>{comment.comment}</p>
-                    <p>{`-- ${comment.author}, ${comment.date}`}</p>
+                    <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                 </li>
             )
         })
@@ -19,6 +16,8 @@ class DishDetail extends Component {
 
     render() {
         const dish = this.props.dish;
+
+        if (dish == null) return <div></div>
 
         return (
             <>
